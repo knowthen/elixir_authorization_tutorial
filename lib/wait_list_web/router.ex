@@ -1,5 +1,6 @@
 defmodule WaitListWeb.Router do
   use WaitListWeb, :router
+  use Pow.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,10 +14,25 @@ defmodule WaitListWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  scope "/" do
+    pipe_through :browser
+
+    pow_routes()
+  end
+
   scope "/", WaitListWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/", WaitListWeb do
+    pipe_through [:browser, :protected]
   end
 
   # Other scopes may use custom stacks.
