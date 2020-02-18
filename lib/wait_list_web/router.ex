@@ -19,6 +19,10 @@ defmodule WaitListWeb.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+  pipeline :live_view do
+    plug WaitListWeb.PutSessionUser
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -34,6 +38,12 @@ defmodule WaitListWeb.Router do
   scope "/", WaitListWeb do
     pipe_through [:browser, :protected]
     resources "/users", UserController, only: [:index, :edit, :update]
+  end
+
+  scope "/", WaitListWeb do
+    pipe_through [:browser, :protected, :live_view]
+
+    live "/waitlist", WaitListLive
   end
 
   # Other scopes may use custom stacks.

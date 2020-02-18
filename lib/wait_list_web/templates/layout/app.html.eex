@@ -46,6 +46,7 @@
             <div class="block flex-grow flex items-center w-auto">
               <div class="text-sm flex-grow">
                 <%= link "Users", class: "text-sm text-white hover:text-yellow-300 mr-3", to: Routes.user_path(@conn, :index)%>
+                <%= link "Wait list", class: "text-sm text-white hover:text-yellow-300 mr-3", to: Routes.live_path(@conn, WaitListWeb.WaitListLive)%>
               </div>
               <div>
                 <%= if Pow.Plug.current_user(@conn) do %>
