@@ -1,3 +1,24 @@
-/* This file is for your main application css. */
+@tailwind base;
 
-@import "./phoenix.css";
+@tailwind components;
+
+.alert {
+  @apply p-4 mb-5 border border-transparent border-solid rounded;
+}
+.alert-info {
+  @apply text-blue-800 bg-blue-200 border-blue-300;
+}
+.alert-warning {
+  @apply text-orange-800 bg-orange-200 border-orange-300;
+}
+.alert-danger {
+  @apply bg-red-200 text-red-900 border-red-300;
+}
+.alert p {
+  @apply mb-0;
+}
+.alert:empty {
+  display: none;
+}
+
+@tailwind utilities;
