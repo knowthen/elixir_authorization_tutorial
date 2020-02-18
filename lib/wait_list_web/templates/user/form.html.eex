@@ -1,0 +1,32 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-1/2">
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+      <div class="mb-4 w-3/4">
+        <%= label f, :email, class: "block text-grey-darker text-sm font-bold mb-2" %>
+        <%= text_input f, :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker", disabled: true %>
+        <p class="text-red text-xs italic">
+          <%= error_tag f, :email %>
+        </p>
+      </div>
+      <div class="mb-4 w-3/4">
+        <%= label f, :role, class: "block text-grey-darker text-sm font-bold mb-2" %>
+        <div class="inline-block relative w-full">
+          <%= select f, :role, ["kiosk", "server", "host", "manager"], class: "shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker bg-white"%>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+        </div>
+        <p class="text-red text-xs italic">
+          <%= error_tag f, :role %>
+        </p>
+      </div>
+      <div class="flex items-center justify-between">
+        <%= submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link "Back", to: Routes.user_path(@conn, :index), class: "px-4 ph-2 text-gray-900"%>
+      </div>
+  </div>
+<% end %>

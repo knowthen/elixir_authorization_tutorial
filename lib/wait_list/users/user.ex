@@ -18,4 +18,10 @@ defmodule WaitList.Users.User do
     |> Ecto.Changeset.cast(attrs, [:role])
     |> Ecto.Changeset.validate_inclusion(:role, @roles)
   end
+
+  def role_changeset(user_or_changeset, attrs) do
+    user_or_changeset
+    |> Ecto.Changeset.cast(attrs, [:role])
+    |> Ecto.Changeset.validate_inclusion(:role, @roles)
+  end
 end

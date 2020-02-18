@@ -1,0 +1,24 @@
+<h1 class="text-2xl">Listing Users</h1>
+
+<table class="table-fixed">
+  <thead>
+    <tr>
+      <th class="w-1/3 px-4 py-2 text-left">Email</th>
+      <th class="w-1/3 px-4 py-2 text-left">role</th>
+
+      <th class="w-1/3 px-4 py-2 text-left"></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+      <td class="border px-4 py-2"><%= user.email %></td>
+      <td class="border px-4 py-2"><%= user.role %></td>
+
+      <td class="border px-4 py-2">
+        <span><%= link "Edit", to: Routes.user_path(@conn, :edit, user), class: "bg-transparent hover:bg-blue-500 text-blue-700 font-normal text-sm hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

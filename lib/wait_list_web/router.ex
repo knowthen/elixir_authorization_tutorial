@@ -33,6 +33,7 @@ defmodule WaitListWeb.Router do
 
   scope "/", WaitListWeb do
     pipe_through [:browser, :protected]
+    resources "/users", UserController, only: [:index, :edit, :update]
   end
 
   # Other scopes may use custom stacks.

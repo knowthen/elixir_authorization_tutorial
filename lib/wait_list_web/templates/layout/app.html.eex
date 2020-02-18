@@ -45,7 +45,7 @@
             </div>
             <div class="block flex-grow flex items-center w-auto">
               <div class="text-sm flex-grow">
-
+                <%= link "Users", class: "text-sm text-white hover:text-yellow-300 mr-3", to: Routes.user_path(@conn, :index)%>
               </div>
               <div>
                 <%= if Pow.Plug.current_user(@conn) do %>
