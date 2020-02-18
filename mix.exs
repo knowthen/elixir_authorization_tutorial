@@ -44,7 +44,8 @@ defmodule WaitList.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:pow, "~> 1.0"},
-      {:phoenix_live_view, "~> 0.7"}
+      {:phoenix_live_view, "~> 0.7"},
+      {:ecto_enum, "~> 1.4"}
     ]
   end
 
