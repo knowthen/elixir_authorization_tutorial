@@ -1,5 +1,6 @@
 defmodule WaitListWeb.WaitListLive do
   use Phoenix.LiveView
+  import WaitList.Authorization
   alias WaitList.Parties
   alias WaitList.Parties.Party
   alias WaitList.PubSub
@@ -33,13 +34,18 @@ defmodule WaitListWeb.WaitListLive do
   end
 
   def handle_event("save", %{"party" => party_params}, socket) do
-    with {:ok, party} <-
+    role = socket.assigns.current_user.role
+    
+    with true <- can(role) |> create?(Party),
+         {:ok, party} <-
            Parties.create_party(party_params) do
       PubSub.broadcast_party(:create, party)
       socket = assign(socket, changeset: Parties.change_party(%Party{}))
 
       {:noreply, socket}
     else
+      false ->
+        {:noreply, put_message(socket, :error, "You are not authorized to do this!")}
       {:error, %Ecto.Changeset{} = changeset} ->
         socket =
           socket
@@ -53,11 +59,15 @@ defmodule WaitListWeb.WaitListLive do
   def handle_event("seat", %{"id" => id}, socket) do
     party = Parties.get_party!(id)
     attrs = %{status: :seated}
+    role = socket.assigns.current_user.role
 
-    with {:ok, party} <- Parties.update_party(party, attrs) do
+    with true <- can(role) |> update?(Party),
+         {:ok, party} <- Parties.update_party(party, attrs) do
       PubSub.broadcast_party(:update, party)
       {:noreply, put_message(socket, :info, "Party: #{party.name} seated")}
     else
+      false ->
+        {:noreply, put_message(socket, :error, "You are not authorized to seat parties!")}
       {:error, %Ecto.Changeset{}} ->
         {:noreply, put_message(socket, :error, "Unable to seat party!")}
     end
@@ -66,11 +76,15 @@ defmodule WaitListWeb.WaitListLive do
   def handle_event("cancel", %{"id" => id}, socket) do
     party = Parties.get_party!(id)
     attrs = %{status: :cancelled}
+    role = socket.assigns.current_user.role
 
-    with {:ok, party} <- Parties.update_party(party, attrs) do
+    with true <- can(role) |> update?(Party),
+         {:ok, party} <- Parties.update_party(party, attrs) do
       PubSub.broadcast_party(:update, party)
       {:noreply, put_message(socket, :info, "Party: #{party.name} canceled")}
     else
+      false ->
+        {:noreply, put_message(socket, :error, "You are not authorized to cancel parties!")}
       {:error, %Ecto.Changeset{}} ->
         {:noreply, put_message(socket, :error, "Unable to cancel party!")}
     end
