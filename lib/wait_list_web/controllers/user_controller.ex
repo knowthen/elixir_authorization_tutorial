@@ -1,6 +1,8 @@
 defmodule WaitListWeb.UserController do
   use WaitListWeb, :controller
   alias WaitList.Users
+  
+  plug WaitListWeb.Authorize, resource: WaitList.Users.User
 
   def index(conn, _params) do
     users = Users.list_users()
