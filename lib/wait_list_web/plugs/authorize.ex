@@ -31,7 +31,7 @@ defmodule WaitListWeb.Authorize do
 
   """
   Hi Mr.Moore
-  There is have a bug!!!
+  I found a bug
   When i use `mix phx.gen.html <Any> ` generate html/controller/view and schema.
 
   In the `Old Code` ,if i click the `Save` button, that will have two flashes and redirect to the index page :
