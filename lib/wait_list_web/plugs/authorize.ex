@@ -38,7 +38,7 @@ defmodule WaitListWeb.Authorize do
     - "Article created successfully"
     - "You're not authorized to do that!"
 
-  Because the action of `show` is missing
+  Because the action of `show` is missing.
   """
 
   # New Code
